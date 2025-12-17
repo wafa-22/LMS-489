@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - University Library</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="logo">University Library</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="books.html">Books</a>
+            <a href="categories.html">Categories</a>
+            <a href="login.html">Login</a>
+        </div>
+    </nav>
+
+    <!-- LOGIN SECTION -->
+    <section class="login-section">
+        <div class="login-wrapper">
+            <!-- Left Side - Branding -->
+            <div class="login-brand">
+                <div class="brand-icon">📚</div>
+                <h2>University Library</h2>
+                <p>Access your reading experience</p>
+                <div class="brand-features">
+                    <div class="feature">✓ Browse thousands of books</div>
+                    <div class="feature">✓ Reserve your favorites</div>
+                    <div class="feature">✓ Track your reading history</div>
+                    <div class="feature">✓ Join our community</div>
+                </div>
+            </div>
+
+            <!-- Right Side - Login Form -->
+            <div class="login-form-wrapper">
+                <div class="form-header">
+                    <h1>Welcome Back</h1>
+                    <p>Sign in to your account</p>
+                </div>
+
+                <form id="loginForm" class="login-form">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">✉️</span>
+                            <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">🔒</span>
+                            <input type="password" id="password" name="password" placeholder="••••••••" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="role">Login As</label>
+                        <select id="role" name="role" class="role-select" required>
+                                <option value="user">User</option>
+                                <option value="admin">Administrator</option>
+                                <option value="librarian">Librarian</option>
+                            </select>
+                    </div>
+
+                    <div class="form-remember">
+                        <input type="checkbox" id="remember" name="remember">
+                        <label for="remember">Remember me</label>
+                        <a href="#" class="forgot-password">Forgot password?</a>
+                    </div>
+
+                    <div id="loginError" class="login-error" style="display:none;"></div>
+
+                    <div style="margin-top:8px; text-align:center; color:#d0a873; font-size:13px; opacity:0.9;">
+                        Demo accounts: <strong>user@example.com / user123</strong> (User) • <strong>admin@example.com / admin123</strong> (Admin)
+                    </div>
+
+                    <button type="submit" class="btn-login">Sign In</button>
+                </form>
+
+                <div class="form-divider">
+                    <span>Or continue with</span>
+                </div>
+
+                <div class="social-login">
+                    <button type="button" class="social-btn google-btn">Google</button>
+                    <button type="button" class="social-btn facebook-btn">Facebook</button>
+                </div>
+
+                <div class="form-footer">
+                    <p>Don't have an account? <a href="#" class="signup-link">Create one now</a></p>
+                </div>
+                <div style="text-align:center; margin-top:12px;">
+                    <button id="resetDemoBtn" class="btn-gold" style="background:#6a5845;">Reset Defaults</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SIGNUP MODAL -->
+    <div id="signupModal" class="signup-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:1001; justify-content:center; align-items:center;">
+        <div style="background:#2a1e16; padding:24px; border-radius:10px; width:420px;">
+            <h3 style="color:#e6c08b; margin-bottom:10px;">Create Account</h3>
+            <form id="signupForm">
+                <label style="color:#d0a873">Full Name</label>
+                <input type="text" id="signupName" required>
+                <label style="color:#d0a873; margin-top:8px;">Email</label>
+                <input type="email" id="signupEmail" required>
+                <label style="color:#d0a873; margin-top:8px;">Password</label>
+                <input type="password" id="signupPassword" required>
+                <label style="color:#d0a873; margin-top:8px;">Type</label>
+                <select id="signupType">
+                    <option value="member">Member</option>
+                    <option value="staff">Staff</option>
+                </select>
+                <div style="display:flex; gap:8px; margin-top:12px; justify-content:flex-end;">
+                    <button id="cancelSignup" type="button" class="btn-gold" style="background:#6a5845;">Cancel</button>
+                    <button type="submit" class="btn-gold">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+<script>
+document.getElementById("loginForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  fetch("api/login.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email: email,
+      password: password
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.status === "success") {
+      window.location.href = "index.html";
+    } else {
+      const err = document.getElementById("loginError");
+      err.style.display = "block";
+      err.textContent = data.message;
+    }
+  })
+  .catch(err => console.error(err));
+});
+</script>
+
+   
+
+</body>
+</html>

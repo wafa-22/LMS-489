@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Details – University Library</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="logo">University Library</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="books.html">Books</a>
+            <a href="categories.html">Categories</a>
+            <a href="profile.html">Profile</a>
+            <a href="login.html">Logout</a>
+        </div>
+    </nav>
+
+    <!-- BOOK DETAILS AREA -->
+    <section class="section" style="margin-top:130px;">
+        <div class="details-container">
+
+            <!-- IMAGE -->
+            <div class="details-image">
+                <img id="detailsImage" src="" alt="Book Cover">
+            </div>
+
+            <!-- INFO -->
+            <div class="details-info">
+
+                <h2 id="detailsTitle" class="details-title"></h2>
+                <p id="detailsAuthor" class="details-author"></p>
+                <div class="details-meta" style="display:flex; gap:18px; flex-wrap:wrap; margin-top:8px;">
+                    <span id="detailsISBN" style="opacity:0.85;"></span>
+                    <span id="detailsCategory" style="opacity:0.85;"></span>
+                    <span id="detailsYear" style="opacity:0.85;"></span>
+                    <span id="detailsLanguage" style="opacity:0.85;"></span>
+                </div>
+                <p id="detailsPublisher" style="opacity:0.85; margin-top:6px;"></p>
+                <p id="detailsStatus" style="font-weight:600; color:#e6c08b; margin-top:6px;"></p>
+
+                <p class="details-description" id="detailsDescription" style="margin-top:12px;">
+                    This is a preview description.  
+                    Each book contains unique information based on the Library's archive database.  
+                    The book details are dynamically loaded from the system.
+                </p>
+
+                <div style="display:flex; gap:10px; align-items:center; margin-top:16px;">
+                    <button id="actionPrimary" class="btn-gold details-btn">Loading...</button>
+                    <button id="actionSecondary" class="btn-gold details-btn" style="background:#6a5845; display:none;">Return</button>
+                    <button id="actionRenew" class="btn-gold details-btn" style="background:#8ea67f; display:none;">Renew</button>
+                </div>
+
+                <div id="borrowerInfo" style="margin-top:12px; opacity:0.85;"></div>
+                <div id="reservationsList" style="margin-top:10px; opacity:0.85;"></div>
+
+                <div id="similarBooks" style="margin-top:18px;">
+                    <h4 style="margin-bottom:8px; color:#d0a873;">Similar books</h4>
+                    <div id="similarBooksGrid" class="books-grid"></div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="footer">
+        © 2025 University Library — All Rights Reserved
+    </footer>
+
+    <script src="app.js"></script>
+  <script>
+const id = new URLSearchParams(window.location.search).get("id");
+
+fetch("api/books.php?id=" + id)
+  .then(r => r.json())
+  .then(b => {
+    document.querySelector(".details-title").textContent = b.title;
+    document.querySelector(".details-author").textContent = b.author;
+    document.querySelector(".details-description").textContent = b.description;
+    document.querySelector(".details-image img").src = "images/" + b.image;
+  });
+</script>
+  <button class="btn-gold" onclick="borrowBook()">Borrow</button>
+<script>
+function borrowBook() {
+  fetch("api/borrow.php", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({ book_id: id })
+  })
+  .then(r=>r.json())
+  .then(d=>alert(d.message));
+}
+</script>
+<button class="btn-gold" onclick="reserveBook()">Reserve</button>
+
+<script>
+function reserveBook() {
+  fetch("api/reserve.php", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({ book_id: id })
+  })
+  .then(r=>r.json())
+  .then(d=>alert(d.message));
+}
+</script>
+
+</body>
+</html>

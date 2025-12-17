@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Books – University Library</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div id="booksContainer"></div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="logo">University Library</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="books.html">Books</a>
+            <a href="categories.html">Categories</a>
+            <a href="login.html">Login</a>
+        </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <section class="section" style="margin-top: 120px;">
+        <h2 class="section-title">Available Books</h2>
+        <div style="display:flex; justify-content:center; margin-bottom:18px; gap:10px;">
+            <input type="search" id="searchBooks" placeholder="Search by title, author, category..." style="width:70%; padding:12px; border-radius:10px; border:1px solid rgba(230,192,139,0.2); background:#1c130e; color:#f8f4ef;">
+        </div>
+
+        <div class="books-grid">
+
+            <!-- Book 1 -->
+            <div class="book-card">
+                <img src="images/book1.jpg" alt="">
+                <h3 class="book-title">The Golden Era</h3>
+                <p class="book-author">Author A</p>
+                <a href="book_details.html" class="btn-gold" style="display:block; text-align:center; margin-top:10px;">Details</a>
+            </div>
+
+            <!-- Book 2 -->
+            <div class="book-card">
+                <img src="images/book2.jpg" alt="">
+                <h3 class="book-title">Digital Frontiers</h3>
+                <p class="book-author">Author B</p>
+                <a href="book_details.html" class="btn-gold" style="display:block; text-align:center; margin-top:10px;">Details</a>
+            </div>
+
+            <!-- Book 3 -->
+            <div class="book-card">
+                <img src="images/book3.jpg" alt="">
+                <h3 class="book-title">AI Revolution</h3>
+                <p class="book-author">Author C</p>
+                <a href="book_details.html" class="btn-gold" style="display:block; text-align:center; margin-top:10px;">Details</a>
+            </div>
+
+            <!-- Book 4 -->
+            <div class="book-card">
+                <img src="images/book4.jpg" alt="">
+                <h3 class="book-title">Mystery of Time</h3>
+                <p class="book-author">Author D</p>
+                <a href="book_details.html" class="btn-gold" style="display:block; text-align:center; margin-top:10px;">Details</a>
+            </div>
+
+            <!-- Book 5 -->
+            <div class="book-card">
+                <img src="images/book5.jpg" alt="">
+                <h3 class="book-title">The Lost Library</h3>
+                <p class="book-author">Author E</p>
+                <a href="book_details.html" class="btn-gold" style="display:block; text-align:center; margin-top:10px;">Details</a>
+            </div>
+
+            <!-- Book 6 -->
+            <div class="book-card">
+                <img src="images/book6.jpg" alt="">
+                <h3 class="book-title">Hidden Worlds</h3>
+                <p class="book-author">Author F</p>
+                <a href="book_details.html" class="btn-gold" style="display:block; text-align:center; margin-top:10px;">Details</a>
+            </div>
+
+            <!-- Book 7 -->
+            <div class="book-card">
+                <img src="images/book7.jpg" alt="">
+                <h3 class="book-title">Future Codes</h3>
+                <p class="book-author">Author G</p>
+                <a href="book_details.html" class="btn-gold" style="display:block; text-align:center; margin-top:10px;">Details</a>
+            </div>
+
+            <!-- Book 8 -->
+            <div class="book-card">
+                <img src="images/book8.jpg" alt="">
+                <h3 class="book-title">Beyond Reality</h3>
+                <p class="book-author">Author H</p>
+                <a href="book_details.html" class="btn-gold" style="display:block; text-align:center; margin-top:10px;">Details</a>
+            </div>
+
+            <!-- Book 9 -->
+            <div class="book-card">
+                <img src="images/book9.jpg" alt="">
+                <h3 class="book-title">Secrets of Knowledge</h3>
+                <p class="book-author">Author I</p>
+                <a href="book_details.html" class="btn-gold" style="display:block; text-align:center; margin-top:10px;">Details</a>
+            </div>
+
+            <!-- Book 10 -->
+            <div class="book-card">
+                <img src="images/book10.jpg" alt="">
+                <h3 class="book-title">Art of Learning</h3>
+                <p class="book-author">Author J</p>
+                <a href="book_details.html" class="btn-gold" style="display:block; text-align:center; margin-top:10px;">Details</a>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        © 2025 University Library — All Rights Reserved
+    </footer>
+
+
+    <!-- NAVBAR SCROLL SCRIPT -->
+    <script>
+        const navbar = document.getElementById("navbar");
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 80) navbar.classList.add("scrolled");
+            else navbar.classList.remove("scrolled");
+        });
+    </script>
+
+    <script src="app.js"></script>
+</body>
+</html>
