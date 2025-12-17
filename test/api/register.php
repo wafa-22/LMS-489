@@ -1,16 +1,14 @@
 <?php
 require "db.php";
-$d=json_decode(file_get_contents("php://input"),true);
-$name=$d["name"]??"";
-$email=$d["email"]??"";
-$pass=$d["password"]??"";
 
-if(!$name||!$email||!$pass){
- echo json_encode(["status"=>"error","message"=>"All fields required"]); exit;
-}
+$d = json_decode(file_get_contents("php://input"), true);
+$hash = password_hash($d["password"], PASSWORD_DEFAULT);
 
-$hash=password_hash($pass,PASSWORD_DEFAULT);
-$q=$conn->prepare("INSERT INTO users(name,email,password) VALUES(?,?,?)");
-$q->bind_param("sss",$name,$email,$hash);
+$q = $conn->prepare("
+  INSERT INTO users(full_name,email,password_hash)
+  VALUES (?,?,?)
+");
+$q->bind_param("sss", $d["name"], $d["email"], $hash);
 $q->execute();
+
 echo json_encode(["status"=>"success"]);

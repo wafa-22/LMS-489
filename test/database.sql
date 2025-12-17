@@ -59,3 +59,12 @@ CREATE TABLE IF NOT EXISTS notifications (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
+
+
+ALTER TABLE books
+ADD CONSTRAINT chk_copies
+CHECK (total_copies >= 0 AND available_copies >= 0);
+
+
+ALTER TABLE books
+MODIFY category_id INT NOT NULL;

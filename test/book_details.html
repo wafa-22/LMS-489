@@ -1,113 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Book Details – University Library</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Book Details – University Library</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
-    <!-- NAVBAR -->
-    <nav class="navbar" id="navbar">
-        <div class="logo">University Library</div>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="books.html">Books</a>
-            <a href="categories.html">Categories</a>
-            <a href="profile.html">Profile</a>
-            <a href="login.html">Logout</a>
-        </div>
-    </nav>
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="logo">University Library</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="books.html">Books</a>
+    <a href="login.html">Login</a>
+  </div>
+</nav>
 
-    <!-- BOOK DETAILS AREA -->
-    <section class="section" style="margin-top:130px;">
-        <div class="details-container">
+<section class="section" style="margin-top:120px;">
+  <div class="book-details-container">
 
-            <!-- IMAGE -->
-            <div class="details-image">
-                <img id="detailsImage" src="" alt="Book Cover">
-            </div>
+    <img id="bookImage" class="book-details-img" src="" alt="">
 
-            <!-- INFO -->
-            <div class="details-info">
+    <div class="book-details-info">
+      <h2 id="bookTitle"></h2>
+      <p><strong>Author:</strong> <span id="bookAuthor"></span></p>
+      <p><strong>ISBN:</strong> <span id="bookISBN"></span></p>
+      <p><strong>Category:</strong> <span id="bookCategory"></span></p>
+      <p><strong>Year:</strong> <span id="bookYear"></span></p>
+      <p><strong>Available Copies:</strong> <span id="bookCopies"></span></p>
 
-                <h2 id="detailsTitle" class="details-title"></h2>
-                <p id="detailsAuthor" class="details-author"></p>
-                <div class="details-meta" style="display:flex; gap:18px; flex-wrap:wrap; margin-top:8px;">
-                    <span id="detailsISBN" style="opacity:0.85;"></span>
-                    <span id="detailsCategory" style="opacity:0.85;"></span>
-                    <span id="detailsYear" style="opacity:0.85;"></span>
-                    <span id="detailsLanguage" style="opacity:0.85;"></span>
-                </div>
-                <p id="detailsPublisher" style="opacity:0.85; margin-top:6px;"></p>
-                <p id="detailsStatus" style="font-weight:600; color:#e6c08b; margin-top:6px;"></p>
+      <div style="margin-top:20px; display:flex; gap:10px;">
+        <button class="btn-gold" onclick="borrowBook()">Borrow</button>
+        <button class="btn-gold" onclick="reserveBook()">Reserve</button>
+      </div>
+    </div>
 
-                <p class="details-description" id="detailsDescription" style="margin-top:12px;">
-                    This is a preview description.  
-                    Each book contains unique information based on the Library's archive database.  
-                    The book details are dynamically loaded from the system.
-                </p>
+  </div>
+</section>
 
-                <div style="display:flex; gap:10px; align-items:center; margin-top:16px;">
-                    <button id="actionPrimary" class="btn-gold details-btn">Loading...</button>
-                    <button id="actionSecondary" class="btn-gold details-btn" style="background:#6a5845; display:none;">Return</button>
-                    <button id="actionRenew" class="btn-gold details-btn" style="background:#8ea67f; display:none;">Renew</button>
-                </div>
+<footer class="footer">
+  © 2025 University Library — All Rights Reserved
+</footer>
 
-                <div id="borrowerInfo" style="margin-top:12px; opacity:0.85;"></div>
-                <div id="reservationsList" style="margin-top:10px; opacity:0.85;"></div>
-
-                <div id="similarBooks" style="margin-top:18px;">
-                    <h4 style="margin-bottom:8px; color:#d0a873;">Similar books</h4>
-                    <div id="similarBooksGrid" class="books-grid"></div>
-                </div>
-
-            </div>
-
-        </div>
-    </section>
-
-    <footer class="footer">
-        © 2025 University Library — All Rights Reserved
-    </footer>
-
-    <script src="app.js"></script>
-  <script>
-const id = new URLSearchParams(window.location.search).get("id");
-
-fetch("api/books.php?id=" + id)
-  .then(r => r.json())
-  .then(b => {
-    document.querySelector(".details-title").textContent = b.title;
-    document.querySelector(".details-author").textContent = b.author;
-    document.querySelector(".details-description").textContent = b.description;
-    document.querySelector(".details-image img").src = "images/" + b.image;
-  });
-</script>
-  <button class="btn-gold" onclick="borrowBook()">Borrow</button>
 <script>
+const navbar = document.getElementById("navbar");
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 80) navbar.classList.add("scrolled");
+  else navbar.classList.remove("scrolled");
+});
+
+// GET ID
+const bookId = new URLSearchParams(window.location.search).get("id");
+if (!bookId) {
+  alert("Book not found");
+  location.href = "books.html";
+}
+
+// LOAD BOOK
+fetch("api/books.php?id=" + bookId)
+  .then(r => r.json())
+  .then(book => {
+    document.getElementById("bookImage").src = "images/" + book.image;
+    document.getElementById("bookTitle").innerText = book.title;
+    document.getElementById("bookAuthor").innerText = book.author;
+    document.getElementById("bookISBN").innerText = book.isbn;
+    document.getElementById("bookCategory").innerText = book.category;
+    document.getElementById("bookYear").innerText = book.publication_year;
+    document.getElementById("bookCopies").innerText = book.available_copies;
+  })
+  .catch(() => {
+    alert("Error loading book");
+    location.href = "books.html";
+  });
+
+// ACTIONS
 function borrowBook() {
   fetch("api/borrow.php", {
     method: "POST",
-    headers: {"Content-Type":"application/json"},
-    body: JSON.stringify({ book_id: id })
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ book_id: bookId })
   })
-  .then(r=>r.json())
-  .then(d=>alert(d.message));
+  .then(r => r.json())
+  .then(d => alert(d.message));
 }
-</script>
-<button class="btn-gold" onclick="reserveBook()">Reserve</button>
 
-<script>
 function reserveBook() {
   fetch("api/reserve.php", {
     method: "POST",
-    headers: {"Content-Type":"application/json"},
-    body: JSON.stringify({ book_id: id })
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ book_id: bookId })
   })
-  .then(r=>r.json())
-  .then(d=>alert(d.message));
+  .then(r => r.json())
+  .then(d => alert(d.message));
 }
 </script>
 
