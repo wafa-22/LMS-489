@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard – University Library</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar">
+        <h2 class="sidebar-title">Admin Panel</h2>
+
+        <a href="admin_dashboard.html" class="sidebar-link active">📊 Dashboard</a>
+        <a href="books.html" class="sidebar-link">📚 Manage Books</a>
+        <a href="add_book.html" class="sidebar-link">➕ Add Book</a>
+        <a href="reservations_admin.html" class="sidebar-link">📝 Reservations</a>
+        <a href="index.html" class="sidebar-link">🚪 Logout</a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="admin-main">
+
+        <div style="display:flex; align-items:center; gap:12px;">
+            <div>
+                <h1 class="admin-title">Welcome, Admin</h1>
+                <p class="admin-subtitle">Here is an overview of your library system.</p>
+            </div>
+            <div style="margin-left:auto; display:flex; gap:8px;">
+                <button id="seedDemoBtn" class="btn-gold">Seed Demo Data</button>
+                <button id="resetDemoBtn" class="btn-gold" style="background:#6a5845;">Reset Defaults</button>
+            </div>
+        </div>
+
+        <!-- DASHBOARD CARDS -->
+        <div class="admin-cards" id="adminReport">
+            <!-- filled by app.js -->
+        </div>
+
+        <!-- LATEST RESERVATIONS TABLE -->
+        <h2 class="section-title" style="margin-top:40px;">Recent Reservations</h2>
+
+        <table class="admin-table">
+            <tr>
+                <th>User</th>
+                <th>Book</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+            <tbody id="adminReservationsTableBody"></tbody>
+        </table>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

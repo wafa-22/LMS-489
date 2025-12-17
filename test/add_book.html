@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Book – University Library</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="logo">University Library</div>
+        <div class="nav-links">
+            <a href="admin_dashboard.html">Dashboard</a>
+            <a href="books.html">Books</a>
+            <a href="add_book.html">Add Book</a>
+            <a href="index.html">Logout</a>
+        </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <section class="section" style="margin-top: 120px;">
+        <h2 class="section-title">Add New Book</h2>
+
+        <div class="add-form-container">
+            <form id="addBookForm">
+                <input type="hidden" id="bookId" value="">
+
+                <label>Book Title</label>
+                <input type="text" id="title" placeholder="Enter book title" required>
+
+                <label>Author</label>
+                <input type="text" id="author" placeholder="Enter author name" required>
+
+                <label>Category</label>
+                <input type="text" id="category" placeholder="e.g. Technology, Literature" required>
+
+                <label>Cover Image</label>
+                <input type="file" id="imageInput" accept="image/*">
+
+                <button type="submit" class="btn-gold" style="margin-top: 20px;">Add Book</button>
+            </form>
+        </div>
+
+        <p id="successMsg" style="text-align:center; margin-top:20px; color:#e6c08b; font-size:18px;"></p>
+    </section>
+
+    <footer class="footer">
+        © 2025 University Library — Admin Panel
+    </footer>
+
+
+    <!-- SCRIPT FOR FORM -->
+    <script>
+        const form = document.getElementById("addBookForm");
+        const successMsg = document.getElementById("successMsg");
+
+        form.addEventListener("submit", function(e){
+            e.preventDefault();
+
+            successMsg.textContent = "Book added successfully! ✔️";
+            form.reset();
+
+            setTimeout(() => {
+                successMsg.textContent = "";
+            }, 2500);
+        });
+
+        // NAVBAR EFFECT
+        const navbar = document.getElementById("navbar");
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 80) navbar.classList.add("scrolled");
+            else navbar.classList.remove("scrolled");
+        });
+    </script>
+     <script>
+document.getElementById("addBookForm").onsubmit = e => {
+  e.preventDefault();
+
+  fetch("api/add_book.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      title: title.value,
+      author: author.value,
+      year: year.value,
+      image: image.value
+    })
+  })
+  .then(r=>r.json())
+  .then(d=>{
+    if(d.status==="success"){
+      alert("Book added successfully");
+      location.href="books.html";
+    } else alert(d.message);
+  });
+};
+</script>
+
+    <script src="app.js"></script>
+</body>
+</html>

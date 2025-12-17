@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Dashboard – University Library</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="logo">University Library</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="books.html">Books</a>
+            <a href="user_dashboard.html">My Dashboard</a>
+            <a href="index.html">Logout</a>
+        </div>
+    </nav>
+
+    <!-- USER DASHBOARD HEADER -->
+    <section class="section" style="margin-top: 130px;">
+        <div style="display:flex; align-items:center; gap:12px;">
+            <div>
+                <h2 class="section-title">Welcome, User</h2>
+        
+            </div>
+            <div style="margin-left:auto; display:flex; gap:8px;">
+                <button id="resetDemoBtn" class="btn-gold" style="background:#6a5845;">Reset Defaults</button>
+            </div>
+        </div>
+        <p style="text-align:center; opacity:0.8; margin-top:-10px;">
+            Here you can view your reservations and explore available books.
+        </p>
+    </section>
+
+
+    <!-- MY BORROWED -->
+    <section class="section">
+        <h2 class="section-title">My Borrowed</h2>
+
+        <div id="myBorrowedGrid" class="books-grid">
+            <!-- filled by app.js -->
+        </div>
+    </section>
+
+    <!-- MY RESERVATIONS -->
+    <section class="section">
+        <h2 class="section-title">My Reservations</h2>
+
+        <div id="myReservationsGrid" class="books-grid">
+            <div class="book-card">
+                <img src="images/book1.jpg">
+                <h3 class="book-title">The Golden Era</h3>
+                <p class="book-author">Author A</p>
+                <a href="book_details.html" class="btn-gold" style="display:block;text-align:center;margin-top:10px;">
+                    View
+                </a>
+            </div>
+            <div class="book-card">
+                <img src="images/book3.jpg">
+                <h3 class="book-title">AI Revolution</h3>
+                <p class="book-author">Reserved</p>
+            </div>
+
+            <div class="book-card">
+                <img src="images/book5.jpg">
+                <h3 class="book-title">The Lost Library</h3>
+                <p class="book-author">Reserved</p>
+                <span class="btn-gold" style="display:block;text-align:center;margin-top:10px; background:#6a5845; cursor:default;">Reserved</span>
+            </div>
+
+            <!-- New reserved book beside the others -->
+            <div class="book-card">
+                <img src="images/book4.jpg">
+                <h3 class="book-title">The Naughty</h3>
+                <p class="book-author">Reserved</p>
+                <span class="btn-gold" style="display:block;text-align:center;margin-top:10px; background:#6a5845; cursor:default;">Reserved</span>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- AVAILABLE BOOKS -->
+    <section class="section">
+        <h2 class="section-title">Available Books</h2>
+
+        <div id="availableBooksGrid" class="books-grid">
+
+            <div class="book-card">
+                <img src="images/book1.jpg">
+                <h3 class="book-title">The Golden Era</h3>
+                <p class="book-author">Author A</p>
+                <a href="book_details.html?id=1" class="btn-gold" style="display:block;text-align:center;margin-top:10px;">View</a>
+            </div>
+
+            <div class="book-card">
+                <img src="images/book2.jpg">
+                <h3 class="book-title">Digital Frontiers</h3>
+                <p class="book-author">Author B</p>
+                <a href="book_details.html?id=2" class="btn-gold" style="display:block;text-align:center;margin-top:10px;">View</a>
+            </div>
+
+            <!-- Reserved items (shown here for demonstration in available list) -->
+            <div class="book-card">
+                <img src="images/book3.jpg">
+                <h3 class="book-title">AI Revolution</h3>
+                <p class="book-author">Reserved</p>
+                <span class="btn-gold" style="display:block;text-align:center;margin-top:10px; background:#6a5845; cursor:default;">Reserved</span>
+            </div>
+
+            <div class="book-card">
+                <img src="images/book5.jpg">
+                <h3 class="book-title">The Lost Library</h3>
+                <p class="book-author">Reserved</p>
+                <span class="btn-gold" style="display:block;text-align:center;margin-top:10px; background:#6a5845; cursor:default;">Reserved</span>
+            </div>
+
+        </div>
+        
+    
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        © 2025 University Library — User Dashboard
+    </footer>
+
+    
+    <!-- NAVBAR SCROLL SCRIPT -->
+    <script>
+        const navbar = document.getElementById("navbar");
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 80) navbar.classList.add("scrolled");
+            else navbar.classList.remove("scrolled");
+        });
+    </script>
+
+    <script src="app.js"></script>
+</body>
+</html>
